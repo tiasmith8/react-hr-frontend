@@ -15,13 +15,15 @@ const useStyles = makeStyles({
 
 const Workout = ({ workout, sendWorkoutToParent }) => {
     const classes = useStyles();
-
-    const [selectedWorkout, setWorkout] = useState(workout);
     const [name, setName] = useState(workout.name);
     const [description, setDescription] = useState(workout.description);
     const [activities, setActivities] = useState(workout?.activities);
 
     const profileID = "60ADE84C-4079-47E9-1074-08D92F464040";
+
+    const sendChangedActivitiesArrayToParent = async (activitiesSentFromChildComponent) => { // the callback. Use a better name.
+        setActivities(activitiesSentFromChildComponent);
+    };
 
     // Anytime workout changes (from dropdown - it will update the form fields)
     useEffect(() => {
@@ -29,12 +31,12 @@ const Workout = ({ workout, sendWorkoutToParent }) => {
         // getWorkout("F1138EDD-87FC-4688-BC5F-042A847871BE").then((response) => setWorkout(response));
         setDescription(workout?.description);
         setName(workout?.name);
-        // setWorkout(workout);
         setActivities(workout.activities);
     }, [workout] // A list of reasons the useEffect should run. It is the dependency array.
     );
 
-    const handleSubmit = async (e) => {
+    const handleSaveWorkout = async (e) => {
+        debugger;
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -46,7 +48,6 @@ const Workout = ({ workout, sendWorkoutToParent }) => {
         setName(data.name);
         setDescription(data.description);
         setActivities(data.activities);
-        // setWorkout(data);
         sendWorkoutToParent(data);
     }
 
@@ -90,10 +91,15 @@ const Workout = ({ workout, sendWorkoutToParent }) => {
                         multiline
                     />
                     <section id="activities" style={{ paddingBottom: "20px", color: "orange" }}>
-                        {workout?.activities?.length > 0 ? <Activities activities={workout.activities} /> : <p className="top-margin">*No Activities Associated with Workout*</p>}
+                        {/* {workout?.activities?.length > 0 ? 
+                        <Activities activities={workout.activities} sendChangedActivitiesArrayToParent={sendChangedActivitiesArrayToParent} /> 
+                        : <p className="top-margin">*No Activities Associated with Workout*</p>} */}
+                        {workout?.activities?.length > 0 ? "" : <p className="top-margin">*No Activities Associated with Workout*</p>}
+                        {<Activities activities={workout.activities} sendChangedActivitiesArrayToParent={sendChangedActivitiesArrayToParent} />}
+
                     </section>
                     <Button
-                        onClick={(e) => handleSubmit(e.target.value)}
+                        onClick={(e) => handleSaveWorkout(e.target.value)}
                         type="button"
                         color="primary"
                         variant="contained"

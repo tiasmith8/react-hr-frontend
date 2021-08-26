@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import runIcon from '../Run-icon.png'
 import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
     field: {
@@ -18,67 +19,110 @@ const useStyles = makeStyles({
     }
 });
 
-const Activities = ({ activities }) => {
+const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
     const classes = useStyles();
     const [allActivities, setActivities] = useState(activities);
 
     useEffect(() => {
+        // debugger;
     }, [allActivities]);
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} size="small" aria-label="a dense table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell align="left">Activity</TableCell>
-                        <TableCell align="left">Duration</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {allActivities.map((activity, index) => (
-                        <TableRow key={activity.name}>
-                            <TableCell component="th" scope="row">
-                                <img src={runIcon} width="30" height="30" alt="goal icon" />
-                            </TableCell>
-                            <TableCell>
-                                <TextField
-                                    onChange={(e) => {
-                                        let tempActivities = allActivities.slice();
-                                        tempActivities[index].name = e.target.value;
-                                        setActivities(tempActivities);
-                                    }}
-                                    autoFocus={true}
-                                    className={classes.field}
-                                    label="Name"
-                                    name="name"
-                                    variant="outlined"
-                                    required
-                                    value={activity.name}
-                                    inputProps={{ maxLength: 25 }}
-                                />
-                            </TableCell>
-                            <TableCell>
-                                <TextField
-                                    onChange={(e) => {
-                                        let tempActivities = allActivities.slice();
-                                        tempActivities[index].duration = e.target.value;
-                                        setActivities(tempActivities);
-                                    }}
-                                    className={classes.field}
-                                    label="Duration"
-                                    name="duration"
-                                    variant="outlined"
-                                    required
-                                    value={activity.duration}
-                                    inputProps={{ maxLength: 11 }}
-                                />
-                            </TableCell>
+        <>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} size="small" aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell align="left">Activity</TableCell>
+                            <TableCell align="left">Duration</TableCell>
+                            <TableCell align="left"
+                                style={{
+                                    paddingRight: "5px",
+                                    paddingLeft: "5px",
+                                }} >Delete</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {allActivities.map((activity, index) => (
+                            <TableRow key={activity.name}>
+                                <TableCell component="th" scope="row">
+                                    <img src={runIcon} width="30" height="30" alt="goal icon" />
+                                </TableCell>
+                                <TableCell>
+                                    <TextField
+                                        onChange={(e) => {
+                                            let tempActivities = allActivities.slice();
+                                            tempActivities[index].name = e.target.value;
+                                            setActivities(tempActivities);
+                                        }}
+                                        autoFocus={true}
+                                        className={classes.field}
+                                        label="Name"
+                                        name="name"
+                                        variant="outlined"
+                                        required
+                                        value={activity.name}
+                                        inputProps={{ maxLength: 25 }}
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <TextField
+                                        onChange={(e) => {
+                                            let tempActivities = allActivities.slice();
+                                            tempActivities[index].duration = e.target.value;
+                                            setActivities(tempActivities);
+                                            sendChangedActivitiesArrayToParent(allActivities);
+                                        }}
+                                        className={classes.field}
+                                        label="Duration"
+                                        name="duration"
+                                        variant="outlined"
+                                        required
+                                        value={activity.duration}
+                                        inputProps={{ maxLength: 8 }}
+                                    />
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    <img src={runIcon} width="20" height="20" alt="delete icon"
+                                        onClick={(e) => {
+                                            let tempActivities = allActivities.slice();
+                                            const index = tempActivities.indexOf(activity.id);
+                                            tempActivities.splice(index, 1);
+                                            setActivities(tempActivities);
+                                            console.log(activity.id);
+                                            console.log(allActivities);
+                                            activities = tempActivities;
+                                            sendChangedActivitiesArrayToParent(activities);
+                                            debugger;
+                                        }}
+                                        name="deleteButton"
+                                        value={activity.id}
+                                    />
+                                </TableCell>
+                            </TableRow>
+
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+            <section id="addActivity" style={{ paddingTop: "20px" }}>
+                <Button
+                    onClick={(e) => {
+                        let tempActivities = allActivities.slice();
+                        tempActivities.push({});
+                        setActivities(tempActivities);
+                        activities.push({});
+                        debugger;
+                    }}
+
+                    type="button"
+                    color="secondary"
+                    variant="contained"
+                > Add Activity </Button>
+            </section>
+        </>
     )
 }
 
