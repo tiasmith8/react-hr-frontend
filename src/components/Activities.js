@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, setState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,14 +20,11 @@ const useStyles = makeStyles({
 
 const Activities = ({ activities }) => {
     const classes = useStyles();
-    const [allActivities, setActivities] = useState([]);
-    // const [currentActivity, setActivity] = useState(activities[0]);
-    // const [name, setName] = useState(activities.length > 0 ? activities[0].name : "");
-    // const [duration, setDuration] = useState(activities.length > 0 ? activities[0].duration : "");
+    const [allActivities, setActivities] = useState(activities);
 
     useEffect(() => {
-        setActivities(activities)
-    }, [activities]);
+        debugger;
+    }, [allActivities]);
 
     return (
         <TableContainer component={Paper}>
@@ -41,28 +37,39 @@ const Activities = ({ activities }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {allActivities.map((activity) => (
-                        <TableRow key={activity.id}>
+                    {allActivities.map((activity, index) => (
+                        <TableRow key={activity.name}>
                             <TableCell component="th" scope="row">
                                 <img src={runIcon} width="30" height="30" alt="goal icon" />
                             </TableCell>
                             <TextField
                                 onChange={(e) => {
-                                    const idx = allActivities.findIndex(a => a.id === activity.id);
-                                    allActivities[idx].name = e.target.value;
-                                    setActivities(allActivities);
-
+                                    let tempActivities = allActivities.slice();
+                                    tempActivities[index].name = e.target.value;
+                                    setActivities(tempActivities);
                                 }}
+                                autoFocus={true}
                                 className={classes.field}
                                 label="Name"
                                 name="name"
                                 variant="outlined"
-                                fullWidth
                                 required
                                 value={activity.name}
                             />
-                            {/* <TableCell align="left">{activity.name}</TableCell> */}
-                            <TableCell align="left">{activity.duration}</TableCell>
+                            <TextField
+                                onChange={(e) => {
+                                    let tempActivities = allActivities.slice();
+                                    tempActivities[index].duration = e.target.value;
+                                    setActivities(tempActivities);
+                                }}
+                                autoFocus={true}
+                                className={classes.field}
+                                label="Duration"
+                                name="duration"
+                                variant="outlined"
+                                required
+                                value={activity.duration}
+                            />
                         </TableRow>
                     ))}
                 </TableBody>
