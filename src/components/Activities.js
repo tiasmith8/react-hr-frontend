@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import runIcon from '../Run-icon.png'
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     field: {
@@ -47,7 +48,12 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                         {allActivities.map((activity, index) => (
                             <TableRow key={activity.name}>
                                 <TableCell component="th" scope="row">
-                                    <img src={runIcon} width="30" height="30" alt="goal icon" />
+                                    <Link to={{
+                                        pathname: `/activity/${activity.id}`
+                                    }}
+                                        style={{ textDecoration: 'none' }}>
+                                        <img src={runIcon} width="30" height="30" alt="goal icon" />
+                                    </Link>
                                 </TableCell>
                                 <TableCell>
                                     <TextField
@@ -90,8 +96,6 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                             const index = tempActivities.indexOf(activity.id);
                                             tempActivities.splice(index, 1);
                                             setActivities(tempActivities);
-                                            console.log(activity.id);
-                                            console.log(allActivities);
                                             activities = tempActivities;
                                             sendChangedActivitiesArrayToParent(activities);
                                             debugger;

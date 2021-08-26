@@ -7,6 +7,7 @@ import Profile from './components/Profile';
 import WorkoutHistory from './components/WorkoutHistory';
 import Home from "./components/Home";
 import Goals from "./components/Goals";
+import Activity from "./components/Activity";
 
 import { getWorkouts } from "./services/workoutService";
 
@@ -121,6 +122,12 @@ function App() {
           <Route path='/workouts' exact render={(props) => (
             <>
               <Workouts workouts={workouts} />
+            </>
+          )} />
+
+          <Route path='/activity/:id' exact render={(props) => (
+            <>
+              <Activity activity />
             </>
           )} />
 
