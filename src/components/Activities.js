@@ -7,7 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import runIcon from '../Run-icon.png'
+import runIcon from '../Run-icon.png';
+import deleteIcon from '../delete-icon.png';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -90,7 +91,7 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                     />
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    <img src={runIcon} width="20" height="20" alt="delete icon"
+                                    <img src={deleteIcon} width="20" height="20" alt="delete icon"
                                         onClick={(e) => {
                                             let tempActivities = allActivities.slice();
                                             const index = tempActivities.indexOf(activity.id);
