@@ -11,8 +11,6 @@ import Activity from "./components/Activity";
 
 import { getWorkouts } from "./services/workoutService";
 
-import { GlobalProvider } from "./context/GlobalState";
-
 import './App.css';
 import NavBar from "./components/Navbar";
 import Workout from "./components/Workout";

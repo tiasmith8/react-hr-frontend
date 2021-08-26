@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, setState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,8 +25,8 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
     const [allActivities, setActivities] = useState(activities);
 
     useEffect(() => {
-        // debugger;
-    }, [allActivities]);
+        setActivities(activities);
+    }, [activities]);
 
     return (
         <>
@@ -98,7 +98,6 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                             setActivities(tempActivities);
                                             activities = tempActivities;
                                             sendChangedActivitiesArrayToParent(activities);
-                                            debugger;
                                         }}
                                         name="deleteButton"
                                         value={activity.id}
@@ -117,8 +116,7 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                         let tempActivities = allActivities.slice();
                         tempActivities.push({});
                         setActivities(tempActivities);
-                        activities.push({});
-                        debugger;
+                        // activities.push({});
                     }}
 
                     type="button"

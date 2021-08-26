@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { getWorkout } from "./workoutService";
 
 // Goal is to fetch data and store the related state, like response, loading state, errors
 // This is a hook function so it starts with use

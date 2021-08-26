@@ -32,11 +32,10 @@ const Workout = ({ workout, sendWorkoutToParent }) => {
         setDescription(workout?.description);
         setName(workout?.name);
         setActivities(workout.activities);
-    }, [workout] // A list of reasons the useEffect should run. It is the dependency array.
+    }, [workout, sendWorkoutToParent] // A list of reasons the useEffect should run. It is the dependency array.
     );
 
     const handleSaveWorkout = async (e) => {
-        debugger;
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
