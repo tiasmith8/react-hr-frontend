@@ -42,8 +42,6 @@ const Activity = ({ activity }) => {
         activityDetail = data;
     }
 
-
-
     return (
         <>
             <h4>Activity Detail</h4>

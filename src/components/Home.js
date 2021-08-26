@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 const Home = ({ workouts }) => {
+    const profileID = "60ADE84C-4079-47E9-1074-08D92F464040";
+
     return (
         <div style={{ justifyContent: 'center', alignItems: 'center', height: '9vh', textAlign: "center", display: "inline" }}>
             <Link to={{
-                pathname: "/workouts",
+                pathname: `workouts/`,
                 state: { workouts: workouts }
             }}
                 style={{ textDecoration: 'none' }}>
@@ -22,7 +24,11 @@ const Home = ({ workouts }) => {
             <p style={{ marginBottom: "10px" }}>DURATION</p>
             <p>0:00</p>
             <p>DISTANCE</p>
-            <Link to="/profile">
+
+            <Link to={{
+                pathname: `/profile/${profileID}`
+            }}
+                style={{ textDecoration: 'none' }}>
                 <img src={profileImg} width="25" height="25" alt="profile icon" />
             </Link>
 

@@ -67,10 +67,10 @@ function App() {
   }
 
   const fetchProfiles = async () => {
-    const res = await fetch(`https://localhost:44315/api/profiles`)
+    const res = await fetch(`https://localhost:44315/api/profiles/`)
     const data = await res.json()
     // const oneProfileThatIsCorrect = data.filter( (val: profile) => val.profileID.includes("Jeep") )
-    return data[0]
+    return data[10]
   }
 
   const fetchWorkoutHistory = async () => {

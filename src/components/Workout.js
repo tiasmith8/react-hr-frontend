@@ -90,12 +90,8 @@ const Workout = ({ workout, sendWorkoutToParent }) => {
                         multiline
                     />
                     <section id="activities" style={{ paddingBottom: "20px", color: "orange" }}>
-                        {/* {workout?.activities?.length > 0 ? 
-                        <Activities activities={workout.activities} sendChangedActivitiesArrayToParent={sendChangedActivitiesArrayToParent} /> 
-                        : <p className="top-margin">*No Activities Associated with Workout*</p>} */}
-                        {workout?.activities?.length > 0 ? "" : <p className="top-margin">*No Activities Associated with Workout*</p>}
+                        {workout?.activities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
                         {<Activities activities={workout.activities} sendChangedActivitiesArrayToParent={sendChangedActivitiesArrayToParent} />}
-
                     </section>
                     <Button
                         onClick={(e) => handleSaveWorkout(e.target.value)}
@@ -104,8 +100,6 @@ const Workout = ({ workout, sendWorkoutToParent }) => {
                         variant="contained"
                     > Save</Button>
                 </form>
-
-
             </Container>
         </>
     )
