@@ -23,7 +23,6 @@ const Activities = ({ activities }) => {
     const [allActivities, setActivities] = useState(activities);
 
     useEffect(() => {
-        debugger;
     }, [allActivities]);
 
     return (
@@ -42,34 +41,39 @@ const Activities = ({ activities }) => {
                             <TableCell component="th" scope="row">
                                 <img src={runIcon} width="30" height="30" alt="goal icon" />
                             </TableCell>
-                            <TextField
-                                onChange={(e) => {
-                                    let tempActivities = allActivities.slice();
-                                    tempActivities[index].name = e.target.value;
-                                    setActivities(tempActivities);
-                                }}
-                                autoFocus={true}
-                                className={classes.field}
-                                label="Name"
-                                name="name"
-                                variant="outlined"
-                                required
-                                value={activity.name}
-                            />
-                            <TextField
-                                onChange={(e) => {
-                                    let tempActivities = allActivities.slice();
-                                    tempActivities[index].duration = e.target.value;
-                                    setActivities(tempActivities);
-                                }}
-                                autoFocus={true}
-                                className={classes.field}
-                                label="Duration"
-                                name="duration"
-                                variant="outlined"
-                                required
-                                value={activity.duration}
-                            />
+                            <TableCell>
+                                <TextField
+                                    onChange={(e) => {
+                                        let tempActivities = allActivities.slice();
+                                        tempActivities[index].name = e.target.value;
+                                        setActivities(tempActivities);
+                                    }}
+                                    autoFocus={true}
+                                    className={classes.field}
+                                    label="Name"
+                                    name="name"
+                                    variant="outlined"
+                                    required
+                                    value={activity.name}
+                                    inputProps={{ maxLength: 25 }}
+                                />
+                            </TableCell>
+                            <TableCell>
+                                <TextField
+                                    onChange={(e) => {
+                                        let tempActivities = allActivities.slice();
+                                        tempActivities[index].duration = e.target.value;
+                                        setActivities(tempActivities);
+                                    }}
+                                    className={classes.field}
+                                    label="Duration"
+                                    name="duration"
+                                    variant="outlined"
+                                    required
+                                    value={activity.duration}
+                                    inputProps={{ maxLength: 11 }}
+                                />
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
