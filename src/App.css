@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,34 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora&display=swap');
+
+* {
+  font-family: 'Sora', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+.top-margin {
+  margin-top: 20px;
+}
+
+.workout-history-heading {
+  margin-bottom: 5px;
+  color: rgb(38, 170, 170);
+  display: inline-table;
+}
+
+.align-icon-right {
+  Height: 35px;
+  Width: 35px; 
+  align-self: right;
+}
+
+.bold {
+  font-weight: bold;
+}
+
