@@ -101,7 +101,7 @@ const Profile = ({ profile }) => {
                         <label style={{ color: "black" }}>
                             Birthdate:
                             <input type="date" name="birthdate"
-                                value={moment(profileDetail.birthdate).format('YYYY-MM-DD')}
+                                value={moment(profileDetail?.birthdate).format('YYYY-MM-DD')}
                                 onChange={(e) => {
                                     setBirthdate(e.target.value);
                                     profileDetail.birthdate = e.target.value;
