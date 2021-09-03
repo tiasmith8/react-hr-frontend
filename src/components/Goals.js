@@ -1,4 +1,4 @@
-import goalImg from '../goals-icon.png'
+import goalImg from '../goals-icon.png';
 
 const Goals = ({ goals }) => {
 

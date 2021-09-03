@@ -2,6 +2,7 @@ import { React } from 'react';
 import profileImg from '../whiteuser.png';
 import workoutHistoryImg from '../chart-icon.png';
 import goalsImg from '../goals-icon.png';
+import settingsImg from '../gear-icon.png';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
@@ -38,6 +39,10 @@ const Home = ({ workouts }) => {
 
             <Link to="/goals">
                 <img src={goalsImg} className="align-icon-right" alt="goals icon" style={{ marginTop: "40px", marginLeft: "25px" }} />
+            </Link>
+
+            <Link to="/settings">
+                <img src={settingsImg} className="align-icon-right" alt="goals icon" style={{ marginTop: "40px", marginLeft: "25px" }} />
             </Link>
 
 

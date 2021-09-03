@@ -5,8 +5,10 @@ import Header from './components/Header'
 import Workouts from './components/Workouts';
 import Profile from './components/Profile';
 import WorkoutHistory from './components/WorkoutHistory';
+import WorkoutHistoryDetail from "./components/WorkoutHistoryDetail";
 import Home from "./components/Home";
 import Goals from "./components/Goals";
+import Settings from "./components/Settings";
 import Activity from "./components/Activity";
 
 import { getWorkouts } from "./services/workoutService";
@@ -69,8 +71,8 @@ function App() {
   const fetchProfiles = async () => {
     const res = await fetch(`https://localhost:44315/api/profiles/`)
     const data = await res.json()
-    // const oneProfileThatIsCorrect = data.filter( (val: profile) => val.profileID.includes("Jeep") )
-    return data[10]
+    return data[0];
+    return data.find((x: any) => x.id === '60ade84c-4079-47e9-1074-08d92f464040');
   }
 
   const fetchWorkoutHistory = async () => {
@@ -100,7 +102,7 @@ function App() {
         <Header title="HR Training" ></Header>
         <Switch>
           <Route path='/' exact render={(props) => (
-            <div >              
+            <div >
               <Home workouts={workouts} />
             </div>
           )} />
@@ -129,15 +131,27 @@ function App() {
             </>
           )} />
 
-          {/* <Route path='/workouts/{id}' exact render={(props) => (
+          <Route path='/workout-history/:id' exact render={(props) => (
             <>
-              <Workout workout={workouts} />
+              <WorkoutHistoryDetail workoutHistory />
+            </>
+          )} />
+
+          {/* <Route path='/workouts/:id' exact render={(props) => (
+            <>
+              <Workout workout={workouts} sendWorkoutToParent />
             </>
           )} /> */}
 
           <Route path='/goals' exact render={(props) => (
             <>
               <Goals goals={goals} />
+            </>
+          )} />
+
+          <Route path='/settings' exact render={(props) => (
+            <>
+              <Settings />
             </>
           )} />
 
