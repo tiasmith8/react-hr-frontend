@@ -46,7 +46,7 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {allActivities.map((activity, index) => (
+                        {allActivities?.map((activity, index) => (
                             <TableRow key={activity.name}>
                                 <TableCell component="th" scope="row">
                                     <Link to={{
@@ -117,7 +117,6 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                         let tempActivities = allActivities.slice();
                         tempActivities.push({});
                         setActivities(tempActivities);
-                        // activities.push({});
                     }}
 
                     type="button"

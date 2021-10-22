@@ -1,33 +1,39 @@
 import Workout from './Workout'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchWorkouts, } from "../services/HRService";
 
-const Workouts = ({ workouts }) => {
-    const [selectedWorkout, setWorkout] = useState(workouts[0]); // the lifted state
+const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkout }) => {
     const [allWorkouts, setWorkouts] = useState(workouts);
-    var workout = {};
+    const [workout, setWorkout] = useState();
 
-    const sendWorkoutToParent = async (workoutSentFromChildComponent) => { // the callback. Use a better name.
-        setWorkout(workoutSentFromChildComponent);
-        // fetch workouts again
-        const profileID = "60ADE84C-4079-47E9-1074-08D92F464040"
-        const res = await fetch(`https://localhost:44315/api/profiles/${profileID}/workouts`)
-        const data = await res.json()
-        setWorkouts(data);
-    };
+    useEffect(() => {
+        const getWorkouts = async () => {
+            const workoutsFromServer = await fetchWorkouts("60ADE84C-4079-47E9-1074-08D92F464040");
+            setWorkouts(workoutsFromServer);
+        }
+        getWorkouts();
+        debugger;
+    }, [workout, setWorkout])
+
+    debugger;
 
     return (
         <>
             <section style={{ paddingBottom: "10px" }}>
                 <span style={{ paddingRight: "9px", paddingLeft: "23px", fontWeight: "bold" }}>Select Workout</span>
 
-                <select name={allWorkouts}
+                <select name="allWorkouts"
                     onChange={(e) => {
-                        workout = allWorkouts[e.target.value];
-                        setWorkout(workout);
+                        const workout_id = e.target.value;
+                        const changeToThisWorkout = allWorkouts.find(e => e.id === workout_id);
+                        onWorkoutSelection(changeToThisWorkout);
+                        setWorkout(changeToThisWorkout);
                     }}
+
                 >
-                    {allWorkouts.map((workout, i) =>
-                        <option key={i} value={i}>
+                    <option></option>
+                    {allWorkouts.map((workout, id) =>
+                        <option key={workout.id} value={workout.id}>
                             {workout.name}
                         </option>
                     )};
@@ -35,9 +41,9 @@ const Workouts = ({ workouts }) => {
                 </select>
             </section>
 
-            <section id="selectedWorkout">
-                {allWorkouts.length > 0 ? <Workout workout={selectedWorkout} sendWorkoutToParent={sendWorkoutToParent} />
-                    : <p className="top-margin">No Workouts To Show</p>}
+            <section id="selectWorkout">
+                {workout !== undefined ? <Workout workout={workout} onWorkoutSelection={onWorkoutSelection} />
+                    : <p className="top-margin">No Workout Selected</p>}
             </section>
         </>
     )

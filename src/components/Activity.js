@@ -12,7 +12,7 @@ const Activity = ({ activity }) => {
     const [instructions, setInstructions] = useState(activityDetail?.instructions);
     const [duration, setDuration] = useState(activityDetail?.duration);
 
-    const history = useHistory();
+    // const history = useHistory();
 
     // Anytime values change for activityDetail, update the stuff
     useEffect(() => {
@@ -80,7 +80,7 @@ const Activity = ({ activity }) => {
                     onClick={(e) => SaveActivityDetail(e.target.value)}
                 />
                 <input type="button" value="Back up"
-                    onClick={(e) => history.goBack()}
+                    // onClick={(e) => history.goBack()}
                     style={{ marginLeft: "10px" }}
                 />
                 <br></br>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import logo from '../logo.svg';
 
 interface HeaderProps {
@@ -8,9 +8,9 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ title }) => {
-    return (    
+    return (
         <header className='header'>
-            <h1><img src={logo} width="100" height="50" />{title}</h1>
+            <h1><img src={logo} width="100" height="50" alt="logo" />{title}</h1>
         </header>
     )
 }
