@@ -59,6 +59,7 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                 <TableCell>
                                     <TextField
                                         onChange={(e) => {
+                                            debugger;
                                             let tempActivities = allActivities.slice();
                                             tempActivities[index].name = e.target.value;
                                             setActivities(tempActivities);
@@ -114,7 +115,8 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
             <section id="addActivity" style={{ paddingTop: "20px" }}>
                 <Button
                     onClick={(e) => {
-                        let tempActivities = allActivities.slice();
+                        debugger;
+                        let tempActivities = allActivities !== undefined ? allActivities.slice() : [];
                         tempActivities.push({});
                         setActivities(tempActivities);
                     }}

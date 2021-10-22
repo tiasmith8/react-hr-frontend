@@ -1,13 +1,20 @@
 import Workout from './Workout'
 import { useState, useEffect } from "react";
 import { fetchWorkouts, } from "../services/HRService";
+import { Button } from '@material-ui/core';
 
 const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkout }) => {
     const [allWorkouts, setWorkouts] = useState(workouts);
     const [workout, setWorkout] = useState(selectedWorkout || defaultWorkout);
+    const [createNewWorkout, setCreateNewWorkout] = useState(false);
 
-    if (selectedWorkout === null) {
+    // Select Workout
+    const createWorkout = (workout) => {
         debugger;
+        setWorkout(workout);
+    }
+
+    if (selectedWorkout === null && !createNewWorkout) {
         onWorkoutSelection(defaultWorkout);
     }
 
@@ -17,10 +24,7 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
             setWorkouts(workoutsFromServer);
         }
         getWorkouts();
-        debugger;
-    }, [workout, setWorkout])
-
-    debugger;
+    }, [workout, setWorkout, createNewWorkout])
 
     return (
         <>
@@ -47,8 +51,22 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
             </section>
 
             <section id="selectWorkout">
-                {workout !== undefined ? <Workout workout={workout} onWorkoutSelection={onWorkoutSelection} />
+                {workout !== undefined ? <Workout workout={workout} onWorkoutSelection={onWorkoutSelection} createWorkout={createWorkout} />
                     : <p className="top-margin">No Workout Selected</p>}
+            </section>
+            <section id="addWorkout" style={{ paddingTop: "20px", paddingLeft: "25px" }}>
+                <Button
+                    onClick={(e) => {
+                        setCreateNewWorkout(true);
+                        setWorkout({});
+                        onWorkoutSelection(null);
+                        debugger;
+                    }}
+
+                    type="button"
+                    color="primary"
+                    variant="contained"
+                > Add Workout </Button>
             </section>
         </>
     )

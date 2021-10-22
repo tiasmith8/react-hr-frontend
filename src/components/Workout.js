@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Activities from './Activities';
 import { Button, TextField, Container, Typography } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
-import { getWorkout } from "../services/HRService";
-import useFetch from "../services/useFetch";
 
 const useStyles = makeStyles({
     field: {
@@ -14,7 +12,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Workout = ({ workout, onWorkoutSelection }) => {
+const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
     const classes = useStyles();
     const [name, setName] = useState(workout?.name);
     const [description, setDescription] = useState(workout?.description);
@@ -40,11 +38,13 @@ const Workout = ({ workout, onWorkoutSelection }) => {
 
     const handleSaveWorkout = async (e) => {
         const requestOptions = {
-            method: 'PUT',
+            method: (workout.id !== undefined) ? 'PUT' : 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name, description: description, activities: activities })
         };
-        const response = await fetch(`https://localhost:44315/api/profiles/${profileID}/workouts/${workout.id}`, requestOptions);
+        debugger;
+        const response = (workout.id !== undefined) ? await fetch(`https://localhost:44315/api/profiles/${profileID}/workouts/${workout.id}`, requestOptions)
+            : await fetch(`https://localhost:44315/api/profiles/${profileID}/workouts/`, requestOptions);
         const data = await response.json();
 
         setName(data.name);
@@ -57,7 +57,6 @@ const Workout = ({ workout, onWorkoutSelection }) => {
     const selectWorkout = (workout) => {
         onWorkoutSelection(workout);
         history.push('/');
-        debugger;
     }
 
     return (
@@ -76,6 +75,9 @@ const Workout = ({ workout, onWorkoutSelection }) => {
                         onChange={(e) => {
                             setName(e.target.value);
                             workout.name = name;
+                            let newWorkout = { name: name, description: description };
+                            newWorkout.name = e.target.value;
+                            createWorkout(newWorkout);
                         }}
                         className={classes.field}
                         label="Name"
@@ -83,19 +85,21 @@ const Workout = ({ workout, onWorkoutSelection }) => {
                         variant="outlined"
                         fullWidth
                         required
-                        value={name}
+                        value={workout?.name !== undefined ? name : ''}
                     />
                     <TextField
                         onChange={(e) => {
                             setDescription(e.target.value);
                             workout.description = description;
+                            let newWorkout = { name: name, description: description };
+                            newWorkout.description = e.target.value;
                         }}
                         className={classes.field}
                         label="Description"
                         variant="outlined"
                         fullWidth
                         required
-                        value={description}
+                        value={workout?.description !== undefined ? description : ''}
                         name="description"
                         multiline
                     />
@@ -104,7 +108,7 @@ const Workout = ({ workout, onWorkoutSelection }) => {
                         {<Activities activities={workout?.activities} sendChangedActivitiesArrayToParent={sendChangedActivitiesArrayToParent} />}
                     </section>
                     <Button
-                        onClick={(e) => { debugger; handleSaveWorkout(e.target.value) }}
+                        onClick={(e) => { handleSaveWorkout(e.target.value) }}
                         type="button"
                         color="primary"
                         variant="contained"
