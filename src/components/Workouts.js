@@ -4,7 +4,12 @@ import { fetchWorkouts, } from "../services/HRService";
 
 const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkout }) => {
     const [allWorkouts, setWorkouts] = useState(workouts);
-    const [workout, setWorkout] = useState();
+    const [workout, setWorkout] = useState(selectedWorkout || defaultWorkout);
+
+    if (selectedWorkout === null) {
+        debugger;
+        onWorkoutSelection(defaultWorkout);
+    }
 
     useEffect(() => {
         const getWorkouts = async () => {
@@ -31,8 +36,8 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
                     }}
 
                 >
-                    <option></option>
-                    {allWorkouts.map((workout, id) =>
+                    <option key={selectedWorkout?.id} value={selectedWorkout?.id} selected>{selectedWorkout?.name}</option>
+                    {allWorkouts.filter(workout => workout.id !== selectedWorkout?.id).map((workout, id) =>
                         <option key={workout.id} value={workout.id}>
                             {workout.name}
                         </option>
