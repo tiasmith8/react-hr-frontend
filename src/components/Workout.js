@@ -93,6 +93,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                             workout.description = description;
                             let newWorkout = { name: name, description: description };
                             newWorkout.description = e.target.value;
+                            createWorkout(newWorkout);
                         }}
                         className={classes.field}
                         label="Description"
