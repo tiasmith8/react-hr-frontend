@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
+const Activities = ({ activities, updateActivities }) => {
     const classes = useStyles();
     const [allActivities, setActivities] = useState(activities);
 
@@ -59,10 +59,10 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                 <TableCell>
                                     <TextField
                                         onChange={(e) => {
-                                            debugger;
                                             let tempActivities = allActivities.slice();
                                             tempActivities[index].name = e.target.value;
                                             setActivities(tempActivities);
+                                            updateActivities(allActivities);
                                         }}
                                         autoFocus={true}
                                         className={classes.field}
@@ -80,7 +80,7 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                             let tempActivities = allActivities.slice();
                                             tempActivities[index].duration = e.target.value;
                                             setActivities(tempActivities);
-                                            sendChangedActivitiesArrayToParent(allActivities);
+                                            updateActivities(allActivities);
                                         }}
                                         className={classes.field}
                                         label="Duration"
@@ -99,7 +99,7 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
                                             tempActivities.splice(index, 1);
                                             setActivities(tempActivities);
                                             activities = tempActivities;
-                                            sendChangedActivitiesArrayToParent(activities);
+                                            updateActivities(activities);
                                         }}
                                         name="deleteButton"
                                         value={activity.id}
@@ -115,10 +115,10 @@ const Activities = ({ activities, sendChangedActivitiesArrayToParent }) => {
             <section id="addActivity" style={{ paddingTop: "20px" }}>
                 <Button
                     onClick={(e) => {
-                        debugger;
                         let tempActivities = allActivities !== undefined ? allActivities.slice() : [];
                         tempActivities.push({});
                         setActivities(tempActivities);
+                        updateActivities(allActivities);
                     }}
 
                     type="button"
