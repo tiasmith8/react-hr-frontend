@@ -49,17 +49,11 @@ const Activity = ({ activity }) => {
                 <div style={{ padding: "10px 20px" }}>
                     <label >
                         Activity: <input type="text" name="type" value={activityDetail.name} onChange={(e) => {
-                            debugger;
                             setName(e.target.value);
                             activityDetail.name = e.target.value;
                         }} />
                     </label>
                 </div>
-                {/* <div style={{ padding: "10px 20px" }}>
-                    <label>
-                        Name: <input type="text" name="name" value={name} />
-                    </label>
-                </div> */}
                 <div style={{ padding: "10px 20px" }}>
                     <label>
                         Instructions: <textarea name="instructions" value={activityDetail.instructions} rows="5" onChange={(e) => {
