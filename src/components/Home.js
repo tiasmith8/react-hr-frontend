@@ -11,7 +11,7 @@ const Home = ({ selectedWorkout }) => {
     return (
         <div style={{ justifyContent: 'center', alignItems: 'center', height: '9vh', textAlign: "center", display: "inline" }}>
             <Link to={{
-                pathname: `/${profileID}/workouts`,
+                pathname: `/${profileID}/workouts/${selectedWorkout?.id}`,
                 // state: { selectedWorkout: selectedWorkout }
             }}
                 style={{ textDecoration: 'none' }}>
