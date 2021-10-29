@@ -76,7 +76,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                         onChange={(e) => {
                             setName(e.target.value);
                             workout.name = name;
-                            let newWorkout = { name: name, description: description };
+                            let newWorkout = { name: name, description: description, id: workout.id, activities: activities };
                             newWorkout.name = e.target.value;
                             createWorkout(newWorkout);
                         }}
@@ -92,7 +92,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                         onChange={(e) => {
                             setDescription(e.target.value);
                             workout.description = description;
-                            let newWorkout = { name: name, description: description };
+                            let newWorkout = { name: name, description: description, id: workout.id, activities: activities };
                             newWorkout.description = e.target.value;
                             createWorkout(newWorkout);
                         }}
