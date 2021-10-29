@@ -11,11 +11,12 @@ import Settings from "./components/Settings";
 import Activity from "./components/Activity";
 import './App.css';
 import NavBar from "./components/NavigationBar";
-import { fetchWorkouts, fetchProfile, fetchWorkoutHistory, fetchGoals, fetchProfileSettings } from "./services/HRService";
-// import Workout from "./components/Workout";
+import { fetchWorkouts, fetchWorkoutById, fetchProfile, fetchWorkoutHistory, fetchGoals, fetchProfileSettings } from "./services/HRService";
+import Workout from "./components/Workout";
 
 function App() {
   const profileID = "60ADE84C-4079-47E9-1074-08D92F464040"
+  const workoutID = "be0693da-42bd-4cd1-8d8d-0392d9eac55d"
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -47,6 +48,12 @@ function App() {
       setProfileSettings(settings);
     }
     getProfileSettings();
+
+    const getWorkout = async () => {
+      const workout = await fetchWorkoutById(profileID, workoutID);
+      setSelectedWorkout(workout);
+    }
+    getWorkout();
 
   }, [])
 
@@ -87,7 +94,7 @@ function App() {
             </>
           )} />
 
-          <Route path='/:id/workouts' exact render={() => (
+          <Route path='/:id/workouts/:workoutId' exact render={() => (
             <>
               <Workouts workouts={workouts} selectedWorkout={selectedWorkout} onWorkoutSelection={selectWorkout} defaultWorkout={workouts[0]} />
             </>
