@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Activities from './Activities';
 import { Button, TextField, Container, Typography } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
+// import { fetchWorkoutById } from "../services/HRService";
 
 const useStyles = makeStyles({
     field: {
@@ -20,8 +21,8 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
 
     const profileID = "60ADE84C-4079-47E9-1074-08D92F464040";
 
-    const sendChangedActivitiesArrayToParent = async (activitiesSentFromChildComponent) => { // the callback. Use a better name.
-        setActivities(activitiesSentFromChildComponent);
+    const updateActivities = async (changedActivities) => { // the callback.
+        setActivities(changedActivities);
     };
 
     const history = useHistory();
@@ -29,7 +30,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
     // Anytime workout changes (from dropdown - it will update the form fields)
     useEffect(() => {
         // This says call get workout after each render
-        // getWorkout("F1138EDD-87FC-4688-BC5F-042A847871BE").then((response) => setWorkout(response));
+        // fetchWorkoutById(id).then((response) => setWorkoutId(response.id));
         setDescription(workout?.description);
         setName(workout?.name);
         setActivities(workout?.activities);
@@ -106,7 +107,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                     />
                     <section id="activities" style={{ paddingBottom: "20px", color: "orange" }}>
                         {workout?.activities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
-                        {<Activities activities={workout?.activities} sendChangedActivitiesArrayToParent={sendChangedActivitiesArrayToParent} />}
+                        {<Activities activities={workout?.activities} updateActivities={updateActivities} />}
                     </section>
                     <Button
                         onClick={(e) => { handleSaveWorkout(e.target.value) }}
