@@ -40,3 +40,14 @@ export async function fetchProfileSettings(profileID) {
     if (res.ok) return res.json();
     throw res;
 }
+
+export async function deleteWorkout(profileID, workoutID) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    const res = await fetch(`${baseUrl}/profiles/${profileID}/workouts/${workoutID}`, requestOptions);
+    if (res.ok) return res.json();
+    throw res;
+}

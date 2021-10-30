@@ -13,7 +13,6 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
     if (loading) return <p>Loading...</p>
 
     const activities = workoutHistoryDetail.activityHistories?.map((activity, index) =>
-
         <div>
             <div><b>Activity name:</b> {activity.name}</div>
             <div>Instructions: {activity.instructions}</div>
@@ -27,6 +26,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
     return (
         <>
             <h4>Workout History Detail</h4>
+            <h5 style={{ padding: "10px 0px", color: "blue" }}>Workout Name: {workoutHistoryDetail.name}</h5>
             <h5 style={{ padding: "10px 0px" }}>Activities</h5>
 
             {activities}

@@ -20,7 +20,6 @@ const NavBar = () => {
 
     const toggleClass = () => {
         debugger;
-        // useEffect();
     }
 
     return (
@@ -34,15 +33,13 @@ const NavBar = () => {
                 >
                     <MobileNavigation />
                 </div>
-                {/* // className={ open ? 'hamburgerOpen' : '' }
-                // open={open} setOpen={setOpen} */}
                 <NavMenu
                     className={open ? 'NavMenu.hamburgerOpen' : null}
                 >
-                    <NavLink to="/profile" activeStyle>
+                    <NavLink to="/profile/id" activeStyle>
                         Profile
                     </NavLink>
-                    <NavLink to="/workouts" activeStyle>
+                    <NavLink to="/60ADE84C-4079-47E9-1074-08D92F464040/workouts/:id" activeStyle>
                         Workouts
                     </NavLink>
                     <NavLink to="/workout-history" activeStyle>

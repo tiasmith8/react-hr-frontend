@@ -1,6 +1,6 @@
 import Workout from './Workout'
 import { useState, useEffect } from "react";
-import { fetchWorkouts, } from "../services/HRService";
+import { fetchWorkouts, deleteWorkout } from "../services/HRService";
 import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
 
@@ -12,7 +12,6 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
 
     // Select Workout
     const createWorkout = (workout) => {
-        debugger;
         setWorkout(workout);
     }
 
@@ -66,13 +65,25 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
                         setCreateNewWorkout(true);
                         setWorkout({});
                         onWorkoutSelection(null);
-                        debugger;
                     }}
 
                     type="button"
                     color="primary"
                     variant="contained"
                 > Add Workout </Button>
+            </section>
+            <section id="deleteWorkout" style={{ paddingTop: "20px", paddingLeft: "25px" }}>
+                <Button
+                    onClick={(e) => {
+                        deleteWorkout(id, workoutId);
+                        onWorkoutSelection(allWorkouts[0]);
+                        setWorkout(allWorkouts[0]);
+                    }}
+
+                    type="button"
+                    color="secondary"
+                    variant="contained"
+                > Delete Workout </Button>
             </section>
         </>
     )
