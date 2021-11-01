@@ -105,7 +105,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                         name="description"
                         multiline
                     />
-                    <section id="activities" style={{ paddingBottom: "20px", color: "orange" }}>
+                    <section id="activities" style={{ paddingBottom: "20px", color: "orange", display: "inline" }}>
                         {workout?.activities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
                         {<Activities activities={workout?.activities} updateActivities={updateActivities} />}
                     </section>
@@ -114,13 +114,21 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                         type="button"
                         color="primary"
                         variant="contained"
+                        style={{
+                            borderRadius: 35,
+                            backgroundColor: "#755100",
+                        }}
                     > Save</Button>
-                    <section id="selectWorkout" style={{ paddingTop: "20px" }}>
+                    <section id="selectWorkout" style={{ paddingTop: "2px", paddingLeft: "4px", display: "inline" }}>
                         <Button
                             onClick={(e) => { selectWorkout(workout) }}
                             type="button"
-                            color="red"
                             variant="contained"
+                            color="primary"
+                            style={{
+                                borderRadius: 35,
+                                backgroundColor: "#661aff",
+                            }}
                         > Select WOrkout</Button>
                     </section>
 

@@ -112,7 +112,7 @@ const Activities = ({ activities, updateActivities }) => {
                 </Table>
             </TableContainer>
 
-            <section id="addActivity" style={{ paddingTop: "20px" }}>
+            <section id="addActivity" style={{ paddingTop: "20px", paddingRight: "4px", display: "inline-block" }}>
                 <Button
                     onClick={(e) => {
                         let tempActivities = allActivities !== undefined ? allActivities.slice() : [];
@@ -124,6 +124,12 @@ const Activities = ({ activities, updateActivities }) => {
                     type="button"
                     color="secondary"
                     variant="contained"
+                    style={{
+                        borderRadius: 35,
+                        backgroundColor: "#21b6ae",
+                        // padding: "18px 36px",
+                        // fontSize: "10px"
+                    }}
                 > Add Activity </Button>
             </section>
         </>

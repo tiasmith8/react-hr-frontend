@@ -59,7 +59,7 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
                 {workout !== undefined ? <Workout workout={workout} onWorkoutSelection={onWorkoutSelection} createWorkout={createWorkout} />
                     : <p className="top-margin">No Workout Selected</p>}
             </section>
-            <section id="addWorkout" style={{ paddingTop: "20px", paddingLeft: "25px" }}>
+            <section id="addWorkout" style={{ paddingTop: "10px", paddingLeft: "60px", display: "inline-block" }}>
                 <Button
                     onClick={(e) => {
                         setCreateNewWorkout(true);
@@ -70,9 +70,12 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
                     type="button"
                     color="primary"
                     variant="contained"
+                    style={{
+                        borderRadius: 35,
+                    }}
                 > Add Workout </Button>
             </section>
-            <section id="deleteWorkout" style={{ paddingTop: "20px", paddingLeft: "25px" }}>
+            <section id="deleteWorkout" style={{ paddingTop: "10px", paddingLeft: "5px", display: "inline-block" }}>
                 <Button
                     onClick={(e) => {
                         deleteWorkout(id, workoutId);
@@ -83,6 +86,9 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
                     type="button"
                     color="secondary"
                     variant="contained"
+                    style={{
+                        borderRadius: 35,
+                    }}
                 > Delete Workout </Button>
             </section>
         </>
