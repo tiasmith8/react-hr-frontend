@@ -2,7 +2,6 @@ import settingsImg from '../gear-icon.png';
 import { FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
-import { useLocation } from "react-router";
 import useFetch from '../services/useFetch';
 import { useState, useEffect } from "react";
 import { useAlert } from "react-alert";
