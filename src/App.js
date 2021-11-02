@@ -96,7 +96,7 @@ function App() {
 
           <Route path='/:id/workouts/:workoutId' exact render={() => (
             <>
-              <Workouts workouts={workouts} selectedWorkout={selectedWorkout} onWorkoutSelection={selectWorkout} defaultWorkout={workouts[0]} />
+              <Workouts workouts={workouts} selectedWorkout={selectedWorkout} onWorkoutSelection={selectWorkout} />
             </>
           )} />
 

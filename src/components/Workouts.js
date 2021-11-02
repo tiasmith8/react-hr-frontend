@@ -4,9 +4,9 @@ import { fetchWorkouts, deleteWorkout, fetchWorkoutById } from "../services/HRSe
 import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
 
-const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkout }) => {
+const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
     const [allWorkouts, setWorkouts] = useState(workouts || []);
-    const [workout, setWorkout] = useState(selectedWorkout || defaultWorkout || {});
+    const [workout, setWorkout] = useState(selectedWorkout || {});
     const [createNewWorkout, setCreateNewWorkout] = useState(false);
     const [selectedWorkoutId, setId] = useState(workout?.id || null);
 
@@ -27,12 +27,8 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
     }
 
     if (selectedWorkout === null && !createNewWorkout) {
-        debugger;
-        if (defaultWorkout)
-            onWorkoutSelection(defaultWorkout);
-        else {
-            getWorkoutById();
-        }
+        getWorkoutById();
+
     }
 
     useEffect(() => {
