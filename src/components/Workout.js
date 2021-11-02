@@ -4,6 +4,8 @@ import Activities from './Activities';
 import { Button, TextField, Container, Typography } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { useParams } from "react-router";
+import useFetch from '../services/useFetch';
 // import { fetchWorkoutById } from "../services/HRService";
 
 const useStyles = makeStyles({
@@ -15,12 +17,14 @@ const useStyles = makeStyles({
 });
 
 const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
+    const { id, workoutId } = useParams();
     const classes = useStyles();
-    const [name, setName] = useState(workout?.name);
-    const [description, setDescription] = useState(workout?.description);
-    const [activities, setActivities] = useState(workout?.activities);
 
-    const profileID = "60ADE84C-4079-47E9-1074-08D92F464040";
+    let { data: workoutData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`);
+
+    const [name, setName] = useState(workoutData?.name);
+    const [description, setDescription] = useState(workoutData?.description);
+    const [activities, setActivities] = useState(workoutData?.activities);
 
     const updateActivities = async (changedActivities) => { // the callback.
         setActivities(changedActivities);
@@ -45,10 +49,10 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name, description: description, activities: activities })
         };
-        debugger;
-        const response = (workout.id !== undefined) ? await fetch(`https://localhost:44315/api/profiles/${profileID}/workouts/${workout.id}`, requestOptions)
-            : await fetch(`https://localhost:44315/api/profiles/${profileID}/workouts/`, requestOptions);
+        const response = (workout.id !== undefined) ? await fetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`, requestOptions)
+            : await fetch(`https://localhost:44315/api/profiles/${id}/workouts/`, requestOptions);
         const data = await response.json();
+        workoutData = data;
 
         setName(data.name);
         setDescription(data.description);

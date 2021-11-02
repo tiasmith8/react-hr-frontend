@@ -1,35 +1,49 @@
 import Workout from './Workout'
 import { useState, useEffect } from "react";
-import { fetchWorkouts, deleteWorkout } from "../services/HRService";
+import { fetchWorkouts, deleteWorkout, fetchWorkoutById } from "../services/HRService";
 import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
 
 const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkout }) => {
-    const [allWorkouts, setWorkouts] = useState(workouts);
-    const [workout, setWorkout] = useState(selectedWorkout || defaultWorkout);
+    const [allWorkouts, setWorkouts] = useState(workouts || []);
+    const [workout, setWorkout] = useState(selectedWorkout || defaultWorkout || {});
     const [createNewWorkout, setCreateNewWorkout] = useState(false);
-    const [workoutId, setId] = useState(workout?.id);
+    const [selectedWorkoutId, setId] = useState(workout?.id || null);
 
     // Select Workout
     const createWorkout = (workout) => {
         setWorkout(workout);
     }
 
-    if (selectedWorkout === null && !createNewWorkout) {
-        onWorkoutSelection(defaultWorkout);
+    const { id, workoutId } = useParams();
+
+    const getWorkoutById = async () => {
+        const workoutsFromServer = await fetchWorkouts(id);
+        setWorkouts(workoutsFromServer);
+        const workoutFromUrl = await fetchWorkoutById(id, workoutId);
+        onWorkoutSelection(workoutFromUrl);
+        setWorkout(workoutFromUrl);
+        debugger;
     }
 
-    const { id } = useParams();
+    if (selectedWorkout === null && !createNewWorkout) {
+        debugger;
+        if (defaultWorkout)
+            onWorkoutSelection(defaultWorkout);
+        else {
+            getWorkoutById();
+        }
+    }
 
     useEffect(() => {
         const getWorkouts = async () => {
-            const workoutsFromServer = await fetchWorkouts("60ADE84C-4079-47E9-1074-08D92F464040");
+            const workoutsFromServer = await fetchWorkouts(id);
             setWorkouts(workoutsFromServer);
         }
         getWorkouts();
-        setId(workout.id);
-        window.history.replaceState(null, `${workout.name} Page Title`, `/${id}/workouts/${workoutId}`)
-    }, [workout, setWorkout, createNewWorkout, workoutId, id])
+        setId(workout?.id ?? workoutId);
+        window.history.replaceState(null, `Workouts Page Title`, `/${id}/workouts/${selectedWorkoutId}`)
+    }, [workout, setWorkout, createNewWorkout, selectedWorkoutId, id, workoutId])
 
     return (
         <>
@@ -78,7 +92,7 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection, defaultWorkou
             <section id="deleteWorkout" style={{ paddingTop: "10px", paddingLeft: "5px", display: "inline-block" }}>
                 <Button
                     onClick={(e) => {
-                        deleteWorkout(id, workoutId);
+                        deleteWorkout(id, selectedWorkoutId);
                         onWorkoutSelection(allWorkouts[0]);
                         setWorkout(allWorkouts[0]);
                     }}
