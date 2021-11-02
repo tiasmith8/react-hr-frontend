@@ -5,15 +5,16 @@ import { useParams } from "react-router";
 import { useLocation } from "react-router";
 import useFetch from '../services/useFetch';
 import { useState, useEffect } from "react";
+import { useAlert } from "react-alert";
 
-const Settings = (profileSettings) => {
+const Settings = ({ profileSettings }) => {
 
     const history = useHistory();
     const { id } = useParams();
+    const alert = useAlert();
     // let data = useLocation();
-    // const settings = data.state;
 
-    let { data: settingsData, loading } = useFetch(`https://localhost:44315/api/profiles/60ADE84C-4079-47E9-1074-08D92F464040/settings/${id}`)
+    let { data: settingsData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/settings/`);
 
     const [indoor, setIndoor] = useState(settingsData?.indoor);
     const [audioFeedback, setAudioFeedback] = useState(settingsData?.audioFeedback);
@@ -45,10 +46,10 @@ const Settings = (profileSettings) => {
                 minimumPace: minimumPace
             })
         };
-        const response = await fetch(`https://localhost:44315/api/profiles/60ADE84C-4079-47E9-1074-08D92F464040/settings/`, requestOptions);
+        const response = await fetch(`https://localhost:44315/api/profiles/${id}/settings/${profileSettings.id}`, requestOptions);
         const data = await response.json();
         settingsData = data;
-        debugger;
+        alert.show("Settings Updated");
     }
 
     return (
@@ -62,8 +63,8 @@ const Settings = (profileSettings) => {
                             checked={settingsData?.indoor}
                             value={settingsData?.indoor}
                             onChange={(e) => {
-                                setIndoor(e.target.value);
-                                settingsData.indoor = e.target.value;
+                                setIndoor(!settingsData.indoor);
+                                settingsData.indoor = !settingsData.indoor;
                             }}
                         />
                     </label>
@@ -74,8 +75,8 @@ const Settings = (profileSettings) => {
                             value={settingsData?.audioFeedback}
                             checked={settingsData?.audioFeedback}
                             onChange={(e) => {
-                                setAudioFeedback(e.target.value);
-                                settingsData.audioFeedback = e.target.value;
+                                setAudioFeedback(!settingsData.audioFeedback);
+                                settingsData.audioFeedback = !settingsData.audioFeedback;
                             }}
                         />
                     </label>

@@ -4,10 +4,11 @@ import useFetch from "../services/useFetch";
 import Goal from "../components/Goals";
 import { useState, useEffect } from "react";
 import moment from 'moment';
+import { useAlert } from "react-alert";
 
 const Profile = ({ profile }) => {
     const { id } = useParams();
-    let { data: profileDetail, loading, error } = useFetch(`https://localhost:44315/api/profiles/${profile.id}`);
+    let { data: profileDetail, loading } = useFetch(`https://localhost:44315/api/profiles/${profile.id}`);
 
     const [name, setName] = useState(profileDetail?.name);
     const [email, setEmail] = useState(profileDetail?.email);
@@ -18,6 +19,8 @@ const Profile = ({ profile }) => {
     const [weightInLbs, setWeightInLbs] = useState(profileDetail?.weightInLbs);
 
     const history = useHistory();
+
+    const alert = useAlert();
 
     useEffect(() => {
         setName(profileDetail?.name);
@@ -49,6 +52,8 @@ const Profile = ({ profile }) => {
         const response = await fetch(`https://localhost:44315/api/profiles/${profile.id}`, requestOptions);
         const data = await response.json();
         profileDetail = data;
+
+        alert.show("Profile Updated");
     }
 
     return (

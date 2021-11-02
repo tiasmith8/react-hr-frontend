@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Activities from './Activities';
 import { Button, TextField, Container, Typography } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
 // import { fetchWorkoutById } from "../services/HRService";
 
 const useStyles = makeStyles({
@@ -26,6 +27,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
     };
 
     const history = useHistory();
+    const alert = useAlert();
 
     // Anytime workout changes (from dropdown - it will update the form fields)
     useEffect(() => {
@@ -52,6 +54,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
         setDescription(data.description);
         setActivities(data.activities);
         onWorkoutSelection(data);
+        alert.show("Workout Saved");
     }
 
     // Select workout and go to Home
