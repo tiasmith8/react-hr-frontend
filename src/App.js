@@ -16,7 +16,6 @@ import Workout from "./components/Workout";
 
 function App() {
   const profileID = "60ADE84C-4079-47E9-1074-08D92F464040"
-  const workoutID = "be0693da-42bd-4cd1-8d8d-0392d9eac55d"
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -50,7 +49,8 @@ function App() {
     getProfileSettings();
 
     const getWorkout = async () => {
-      const workout = await fetchWorkoutById(profileID, workoutID);
+      const workouts = await fetchWorkouts(profileID);
+      const workout = await fetchWorkoutById(profileID, workouts[0]?.id);
       setSelectedWorkout(workout);
     }
     getWorkout();
