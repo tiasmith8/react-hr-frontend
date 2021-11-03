@@ -43,6 +43,8 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
     }, [workout] // A list of reasons the useEffect should run. It is the dependency array.
     );
 
+    if (loading) return <p>Loading...</p>
+
     const handleSaveWorkout = async (e) => {
         const requestOptions = {
             method: (workout.id !== undefined) ? 'PUT' : 'POST',

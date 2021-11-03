@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { fetchWorkouts, deleteWorkout, fetchWorkoutById } from "../services/HRService";
 import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
+import useFetch from '../services/useFetch';
 
 const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
-    const [allWorkouts, setWorkouts] = useState(workouts || []);
-    const [workout, setWorkout] = useState(selectedWorkout || {});
+    const [allWorkouts, setWorkouts] = useState(workouts);
+    const [workout, setWorkout] = useState(selectedWorkout);
     const [createNewWorkout, setCreateNewWorkout] = useState(false);
-    const [selectedWorkoutId, setId] = useState(workout?.id || null);
+    const [selectedWorkoutId, setId] = useState(workout?.id);
 
     // Select Workout
     const createWorkout = (workout) => {
@@ -16,6 +17,8 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
     }
 
     const { id, workoutId } = useParams();
+
+    let { data: workoutData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`);
 
     const getWorkoutById = async () => {
         const workoutsFromServer = await fetchWorkouts(id);
@@ -32,14 +35,11 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
     }
 
     useEffect(() => {
-        const getWorkouts = async () => {
-            const workoutsFromServer = await fetchWorkouts(id);
-            setWorkouts(workoutsFromServer);
-        }
-        getWorkouts();
         setId(workout?.id ?? workoutId);
         window.history.replaceState(null, `Workouts Page Title`, `/${id}/workouts/${selectedWorkoutId}`)
-    }, [workout, setWorkout, createNewWorkout, selectedWorkoutId, id, workoutId])
+    }, [workout, selectedWorkoutId, id, workoutId])
+
+    if (loading) return <p>Loading...</p>
 
     return (
         <>
