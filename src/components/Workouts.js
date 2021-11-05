@@ -6,6 +6,10 @@ import { useParams } from "react-router";
 import useFetch from '../services/useFetch';
 
 const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
+    const { id, workoutId } = useParams();
+    let { data: workoutData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`);
+    let { data: workoutsData } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts`);
+
     const [allWorkouts, setWorkouts] = useState(workouts);
     const [workout, setWorkout] = useState(selectedWorkout);
     const [createNewWorkout, setCreateNewWorkout] = useState(false);
@@ -15,12 +19,6 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
     const createWorkout = (workout) => {
         setWorkout(workout);
     }
-
-    const { id, workoutId } = useParams();
-
-    let { data: workoutData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`);
-    let { data: workoutsData } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts`);
-
 
     const getWorkoutById = async () => {
         const workoutsFromServer = await fetchWorkouts(id);
@@ -33,7 +31,6 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
 
     if (selectedWorkout === null && !createNewWorkout) {
         getWorkoutById();
-
     }
 
     useEffect(() => {
