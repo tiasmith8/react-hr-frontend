@@ -19,6 +19,8 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
     const { id, workoutId } = useParams();
 
     let { data: workoutData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`);
+    let { data: workoutsData } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts`);
+
 
     const getWorkoutById = async () => {
         const workoutsFromServer = await fetchWorkouts(id);
