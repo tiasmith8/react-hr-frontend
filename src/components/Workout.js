@@ -115,7 +115,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
                         multiline
                     />
                     <section id="activities" style={{ paddingBottom: "20px", color: "orange", display: "inline" }}>
-                        {workout?.activities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
+                        {activities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
                         {<Activities activities={workout?.activities} updateActivities={updateActivities} />}
                     </section>
                     <Button

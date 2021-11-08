@@ -118,7 +118,7 @@ const Activities = ({ activities, updateActivities }) => {
                         let tempActivities = allActivities !== undefined ? allActivities.slice() : [];
                         tempActivities.push({});
                         setActivities(tempActivities);
-                        updateActivities(allActivities);
+                        updateActivities(tempActivities);
                     }}
 
                     type="button"
@@ -127,8 +127,6 @@ const Activities = ({ activities, updateActivities }) => {
                     style={{
                         borderRadius: 35,
                         backgroundColor: "#21b6ae",
-                        // padding: "18px 36px",
-                        // fontSize: "10px"
                     }}
                 > Add Activity </Button>
             </section>
