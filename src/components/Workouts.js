@@ -3,10 +3,14 @@ import { useState, useEffect } from "react";
 import { fetchWorkouts, deleteWorkout, fetchWorkoutById } from "../services/HRService";
 import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
+import { useAlert } from "react-alert";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Confirm alert css
 import useFetch from '../services/useFetch';
 
 const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
     const { id, workoutId } = useParams();
+    const alert = useAlert();
     let { data: workoutData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts/${workoutId}`);
     let { data: workoutsData } = useFetch(`https://localhost:44315/api/profiles/${id}/workouts`);
 
@@ -26,7 +30,6 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
         const workoutFromUrl = await fetchWorkoutById(id, workoutId);
         onWorkoutSelection(workoutFromUrl);
         setWorkout(workoutFromUrl);
-        debugger;
     }
 
     if (selectedWorkout === null && !createNewWorkout) {
@@ -87,9 +90,26 @@ const Workouts = ({ workouts, selectedWorkout, onWorkoutSelection }) => {
             <section id="deleteWorkout" style={{ paddingTop: "10px", paddingLeft: "5px", display: "inline-block" }}>
                 <Button
                     onClick={(e) => {
-                        deleteWorkout(id, selectedWorkoutId);
-                        onWorkoutSelection(allWorkouts[0]);
-                        setWorkout(allWorkouts[0]);
+                        confirmAlert({
+                            title: 'Confirm Deletion',
+                            message: 'Are you sure you want to delete this workout?',
+                            buttons: [
+                                {
+                                    label: 'Yes',
+                                    onClick: async () => {
+                                        deleteWorkout(id, selectedWorkoutId);
+                                        onWorkoutSelection(allWorkouts[0]);
+                                        setWorkout(allWorkouts[0]);
+                                        alert.show("Workout Deleted");
+                                    }
+                                },
+                                {
+                                    label: 'No',
+                                }
+                            ]
+                        });
+
+
                     }}
 
                     type="button"
