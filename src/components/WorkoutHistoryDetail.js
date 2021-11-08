@@ -21,8 +21,6 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
         </div>
     );
 
-    debugger;
-
     return (
         <>
             <h4>Workout History Detail</h4>

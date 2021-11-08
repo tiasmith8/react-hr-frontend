@@ -60,6 +60,7 @@ const Workout = ({ workout, onWorkoutSelection, createWorkout }) => {
         setDescription(data.description);
         setActivities(data.activities);
         onWorkoutSelection(data);
+        window.history.replaceState(null, `Workouts Page Title`, `/${id}/workouts/${data.id}`)
         alert.show("Workout Saved");
     }
 

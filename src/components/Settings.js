@@ -33,7 +33,6 @@ const Settings = ({ profileSettings }) => {
     if (loading) return <p>Loading...</p>
 
     const SaveSettings = async (e) => {
-        debugger;
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
