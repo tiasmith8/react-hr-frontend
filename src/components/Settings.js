@@ -1,5 +1,5 @@
 import settingsImg from '../gear-icon.png';
-import { FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+import { FormGroup, FormControlLabel, Switch, Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 import useFetch from '../services/useFetch';
@@ -112,13 +112,29 @@ const Settings = ({ profileSettings }) => {
                         />
                     </label>
                 </div>
-                <input type="button" value="Save"
-                    onClick={(e) => { debugger; SaveSettings(e.target.value) }}
-                />
-                <input type="button" value="Back up"
-                    onClick={(e) => history.goBack()}
-                    style={{ marginLeft: "10px" }}
-                />
+                <section id="saveSettings" style={{ paddingTop: "10px", paddingLeft: "0px", display: "inline-block" }}>
+                    <Button
+                        onClick={(e) => SaveSettings(e.target.value)
+                        }
+                        type="button"
+                        color="primary"
+                        variant="contained"
+                        style={{
+                            borderRadius: 35,
+                        }}
+                    > Save </Button>
+                </section>
+                <section id="backUp" style={{ paddingTop: "10px", marginLeft: "10px", display: "inline-block" }}>
+                    <Button
+                        onClick={(e) => history.goBack()
+                        }
+                        type="button"
+                        variant="outlined"
+                        style={{
+                            borderRadius: 35,
+                        }}
+                    > Back </Button>
+                </section>
             </form>
 
         </>

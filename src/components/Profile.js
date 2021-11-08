@@ -5,6 +5,7 @@ import Goal from "../components/Goals";
 import { useState, useEffect } from "react";
 import moment from 'moment';
 import { useAlert } from "react-alert";
+import { Button } from '@material-ui/core';
 
 const Profile = ({ profile }) => {
     const { id } = useParams();
@@ -135,13 +136,29 @@ const Profile = ({ profile }) => {
                         </label>
                     </h4>
                 </div>
-                <input type="button" value="Save"
-                    onClick={(e) => SaveProfile(e.target.value)}
-                />
-                <input type="button" value="Back up"
-                    onClick={(e) => history.goBack()}
-                    style={{ marginLeft: "10px" }}
-                />
+                <section id="saveProfile" style={{ paddingTop: "10px", paddingLeft: "0px", display: "inline-block" }}>
+                    <Button
+                        onClick={(e) => SaveProfile(e.target.value)
+                        }
+                        type="button"
+                        color="primary"
+                        variant="contained"
+                        style={{
+                            borderRadius: 35,
+                        }}
+                    > Save </Button>
+                </section>
+                <section id="backUp" style={{ paddingTop: "10px", marginLeft: "10px", display: "inline-block" }}>
+                    <Button
+                        onClick={(e) => history.goBack()
+                        }
+                        type="button"
+                        variant="outlined"
+                        style={{
+                            borderRadius: 35,
+                        }}
+                    > Back </Button>
+                </section>
             </form>
         </div>
     )
