@@ -45,6 +45,9 @@ const NavBar = () => {
                     <NavLink to="/workout-history" activeStyle>
                         Workout History
                     </NavLink>
+                    <NavLink to="/profiles/60ADE84C-4079-47E9-1074-08D92F464040/settings" activeStyle>
+                        Settings
+                    </NavLink>
                     <NavLink to="/goals" activeStyle>
                         Goals
                     </NavLink>
