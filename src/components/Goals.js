@@ -1,7 +1,17 @@
 import goalImg from '../goals-icon.png';
+import { Button } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+import { useParams } from "react-router";
+import useFetch from '../services/useFetch';
+import { useState, useEffect } from "react";
+import { useAlert } from "react-alert";
 
 const Goals = ({ goals }) => {
+    const history = useHistory();
+    const { id } = useParams();
+    const alert = useAlert();
 
+    let { data: goalssData, loading } = useFetch(`https://localhost:44315/api/profiles/${id}/goals/`);
 
     const userGoals = goals?.map((d) =>
         <div>

@@ -7,6 +7,8 @@ const NavBar = () => {
     // const navBarLinks = document.getElementsByTagName('NavMenu').item[0];
     // // const tia = document.getElementsByTagName
 
+    const profileID = "60ADE84C-4079-47E9-1074-08D92F464040";
+
     // debugger;
     // toggleButton.addEventListener('click', () => {
     //     navBarLinks.classList.toggle('activeStyle');
@@ -36,19 +38,19 @@ const NavBar = () => {
                 <NavMenu
                     className={open ? 'NavMenu.hamburgerOpen' : null}
                 >
-                    <NavLink to="/profile/id" activeStyle>
+                    <NavLink to={{ pathname: `/profile/${profileID}` }} activeStyle>
                         Profile
                     </NavLink>
-                    <NavLink to="/60ADE84C-4079-47E9-1074-08D92F464040/workouts/:id" activeStyle>
+                    <NavLink to={{ pathname: `/${profileID}/workouts/:id` }} activeStyle>
                         Workouts
                     </NavLink>
-                    <NavLink to="/workout-history" activeStyle>
+                    <NavLink to={{ pathname: `/workout-history` }} activeStyle>
                         Workout History
                     </NavLink>
-                    <NavLink to="/profiles/60ADE84C-4079-47E9-1074-08D92F464040/settings" activeStyle>
+                    <NavLink to={{ pathname: `/profiles/${profileID}/settings` }} activeStyle>
                         Settings
                     </NavLink>
-                    <NavLink to="/goals" activeStyle>
+                    <NavLink to={{ pathname: `/profiles/${profileID}/goals` }} activeStyle>
                         Goals
                     </NavLink>
                 </NavMenu>

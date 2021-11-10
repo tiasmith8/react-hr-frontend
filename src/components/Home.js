@@ -34,11 +34,16 @@ const Home = ({ selectedWorkout }) => {
                 <img src={profileImg} width="25" height="25" alt="profile icon" />
             </Link>
 
-            <Link to="/workout-history">
+            <Link to={{
+                pathname: `/workout-history`
+            }}>
                 <img src={workoutHistoryImg} className="align-icon-right" alt="workout history icon" style={{ marginTop: "40px", marginLeft: "25px" }} />
+
             </Link>
 
-            <Link to="/goals">
+            <Link to={{
+                pathname: `/profiles/${profileID}/goals`
+            }}>
                 <img src={goalsImg} className="align-icon-right" alt="goals icon" style={{ marginTop: "40px", marginLeft: "25px" }} />
             </Link>
 

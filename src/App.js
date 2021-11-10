@@ -112,7 +112,7 @@ function App() {
             </>
           )} />
 
-          <Route path='/goals' exact render={() => (
+          <Route path='/profiles/:id/goals' exact render={() => (
             <>
               <Goals goals={goals} />
             </>
