@@ -7,7 +7,7 @@ export async function fetchWorkouts(profileID) {
     // res is response. fetch returns a promise so we want to await that promise
     const res = await fetch(`${baseUrl}/profiles/${profileID}/workouts`);
     // This gives us all of the json data
-    if (res.ok) if (res.ok) return res.json();
+    if (res.ok) return res.json();
     throw res;
 }
 
