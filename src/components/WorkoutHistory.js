@@ -12,9 +12,13 @@ const WorkoutHistory = ({ workoutHistory }) => {
             }}
                 style={{ textDecoration: 'none' }}>
 
-                <h4 key={workoutHistory.name} style={{ color: "steelblue" }}><label style={{ color: "black" }}><img src={runIcon} width="30" height="30" alt="goal icon" />Name: </label>{workoutHistory.name}</h4>
-                <h5 key={workoutHistory.description} style={{ color: "red" }}><label style={{ color: "black" }}>Description: </label>{workoutHistory.description}</h5>
-                <h6 key={workoutHistory.notes} style={{ marginBottom: "10px" }}><label style={{ color: "black" }}>Notes: </label>{workoutHistory.notes}</h6>
+                <h4 key={workoutHistory.name}
+                    style={{ color: "maroon", padding: "5px 0px", font: "16px Arial" }}>
+                    <label style={{ color: "black" }}>
+                        <img src={runIcon} width="30" height="30" alt="goal icon" />
+                        Name: </label>{workoutHistory.name}</h4>
+                <h5 key={workoutHistory.description} style={{ color: "black" }}><label style={{ color: "black" }}>Description: </label>{workoutHistory.description}</h5>
+                <h6 key={workoutHistory.notes} style={{ marginBottom: "15px", font: "12px Helvetica" }}><label style={{ color: "blue" }}>Notes: </label>{workoutHistory.notes}</h6>
             </Link>
         </div>
     );
