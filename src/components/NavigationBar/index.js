@@ -44,7 +44,7 @@ const NavBar = () => {
                     <NavLink to={{ pathname: `/${profileID}/workouts/:id` }} activeStyle>
                         Workouts
                     </NavLink>
-                    <NavLink to={{ pathname: `/workout-history` }} activeStyle>
+                    <NavLink to={{ pathname: `/${profileID}/workout-history` }} activeStyle>
                         Workout History
                     </NavLink>
                     <NavLink to={{ pathname: `/profiles/${profileID}/settings` }} activeStyle>

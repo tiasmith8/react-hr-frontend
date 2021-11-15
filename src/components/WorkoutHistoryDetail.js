@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 
 const WorkoutHistoryDetail = ({ workoutHistory }) => {
 
-    const { id } = useParams();
-    const profileId = "60ADE84C-4079-47E9-1074-08D92F464040";
-    let { data: workoutHistoryDetail, loading, error } = useFetch(`https://localhost:44315/api/profiles/${profileId}/workoutHistory/${id}`)
+    const { id, workoutId } = useParams();
+    let { data: workoutHistoryDetail, loading, error } = useFetch(`https://localhost:44315/api/profiles/${id}/workoutHistory/${workoutId}`)
     const history = useHistory();
 
     if (loading) return <p>Loading...</p>

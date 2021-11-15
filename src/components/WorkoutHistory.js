@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 
 const WorkoutHistory = ({ workoutHistory }) => {
 
+    const profileId = "60ADE84C-4079-47E9-1074-08D92F464040";
+
     const workoutHistories = workoutHistory.map((workoutHistory, index) =>
         <div>
             <Link to={{
-                pathname: `/workout-history/${workoutHistory.id}`
+                pathname: `/${profileId}/workout-history/${workoutHistory.id}`
             }}
                 style={{ textDecoration: 'none' }}>
 

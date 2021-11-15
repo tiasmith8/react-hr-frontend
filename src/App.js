@@ -88,7 +88,7 @@ function App() {
             </>
           )} />
 
-          <Route path='/workout-history' exact render={() => (
+          <Route path='/:id/workout-history' exact render={() => (
             <>
               <WorkoutHistory workoutHistory={workoutHistories} />
             </>
@@ -106,7 +106,7 @@ function App() {
             </>
           )} />
 
-          <Route path='/workout-history/:id' exact render={() => (
+          <Route path='/:id/workout-history/:workoutId' exact render={() => (
             <>
               <WorkoutHistoryDetail workoutHistory />
             </>
