@@ -58,21 +58,26 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
             <form noValidate autoComplete="off">
                 <div style={{ padding: "10px 20px" }}>
                     <h4 style={{ color: "steelblue" }}>
-                        <label style={{ color: "black" }}>
+                        <label style={{ color: "green" }}>
                             Name:
-                            <input type="text" name="name" value={workoutHistoryDetail?.name} onChange={(e) => {
-                                setName(e.target.value);
-                                workoutHistoryDetail.name = e.target.value;
-                            }} />
+                            <input type="text" name="name" value={workoutHistoryDetail?.name}
+                                style={{
+                                    paddingLeft: "10px", borderTopStyle: "hidden",
+                                    borderLeftStyle: "hidden", borderRightStyle: "hidden"
+                                }}
+                                onChange={(e) => {
+                                    setName(e.target.value);
+                                    workoutHistoryDetail.name = e.target.value;
+                                }} />
                         </label>
                     </h4>
                 </div>
                 <div style={{ padding: "10px 20px" }}>
                     <h4 style={{ color: "steelblue" }}>
                         <label style={{ color: "black" }}>
-                            Description:
+                            <span>Description:</span>
                             <TextField
-                                style={{ textAlign: 'left' }}
+                                style={{ textAlign: "left", paddingLeft: "10px" }}
                                 multiline
                                 rows={3}
                                 name="description"
@@ -81,11 +86,6 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
                                     workoutHistoryDetail.description = e.target.value;
                                 }}
                             />
-                            {/* <input type="text" name="description"
-                                value={workoutHistoryDetail?.description} onChange={(e) => {
-                                    setDescription(e.target.value);
-                                    workoutHistoryDetail.description = e.target.value;
-                                }} /> */}
                         </label>
                     </h4>
                 </div>
@@ -93,7 +93,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
                     <h4 style={{ color: "steelblue" }}>
                         <label style={{ color: "black" }}>
                             Notes: <TextField
-                                style={{ textAlign: 'left' }}
+                                style={{ textAlign: 'left', paddingLeft: "10px" }}
                                 multiline
                                 rows={3}
                                 name="notes"
