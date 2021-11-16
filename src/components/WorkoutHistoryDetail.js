@@ -1,6 +1,9 @@
 import { useParams } from "react-router"
 import useFetch from "../services/useFetch";
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useAlert } from "react-alert";
+import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const WorkoutHistoryDetail = ({ workoutHistory }) => {
@@ -8,8 +11,37 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
     const { id, workoutId } = useParams();
     let { data: workoutHistoryDetail, loading, error } = useFetch(`https://localhost:44315/api/profiles/${id}/workoutHistory/${workoutId}`)
     const history = useHistory();
+    const alert = useAlert();
+
+    const [name, setName] = useState(workoutHistoryDetail?.name);
+    const [description, setDescription] = useState(workoutHistoryDetail?.description);
+    const [notes, setNotes] = useState(workoutHistoryDetail?.notes);
+
+
+    useEffect(() => {
+        setName(workoutHistoryDetail?.name);
+        setDescription(workoutHistoryDetail?.description);
+        setNotes(workoutHistoryDetail?.notes);
+    }, [workoutHistoryDetail]);
 
     if (loading) return <p>Loading...</p>
+
+    const SaveWorkoutHistory = async (e) => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                description: description,
+                notes: notes
+            })
+        };
+        const response = await fetch(`https://localhost:44315/api/profiles/${id}/workoutHistory/${workoutId}`, requestOptions);
+        const data = await response.json();
+        workoutHistoryDetail = data;
+
+        alert.show("Workout Updated");
+    }
 
     const activities = workoutHistoryDetail.activityHistories?.map((activity, index) =>
         <div>
@@ -23,56 +55,83 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
     return (
         <>
             <h4>Workout History Detail</h4>
-            <h5 style={{ padding: "10px 0px", color: "blue" }}>Workout Name: {workoutHistoryDetail.name}</h5>
-            <h5 style={{ padding: "10px 0px" }}>Activities</h5>
-
-            {activities}
-            <div style={{ paddingTop: "10px" }}>Notes: {workoutHistoryDetail.notes}</div>
-            <div style={{ paddingTop: "10px" }}>Goal: {activities.goal?.name}</div>
-            {/* <div style={{ padding: "10px 20px" }}>
-                <label >
-                    Activity: <input type="text" name="type" value={activityDetail.name} onChange={(e) => {
-                        debugger;
-                        setName(e.target.value);
-                        activityDetail.name = e.target.value;
-                    }} />
-                </label>
-            </div>
-            {/* <div style={{ padding: "10px 20px" }}>
-                    <label>
-                        Name: <input type="text" name="name" value={name} />
-                    </label>
-                </div> */}
-            {/* <div style={{ padding: "10px 20px" }}>
-                <label>
-                    Instructions: <textarea name="instructions" value={activityDetail.instructions} rows="5" onChange={(e) => {
-                        setInstructions(e.target.value);
-                        activityDetail.instructions = e.target.value;
-                    }} />
-                </label>
-            </div>
-            <div style={{ padding: "10px 20px" }}>
-                <label>
-                    Duration: <input type="text" name="duration" value={activityDetail.duration} onChange={(e) => {
-                        setDuration(e.target.value);
-                        activityDetail.duration = e.target.value;
-                    }} />
-                </label>
-            </div>
-            <input type="button" value="Save"
-                onClick={(e) => SaveActivityDetail(e.target.value)}
-            />
-            <input type="button" value="Back up"
-                onClick={(e) => history.goBack()}
-                style={{ marginLeft: "10px" }}
-            />
-            <br></br>
-            <section style={{ paddingTop: "25px" }}>
-                <label>
-                    Goal:
-                    <Goal goal={activityDetail?.goal} />
-                </label>
-            </section> */}
+            <form noValidate autoComplete="off">
+                <div style={{ padding: "10px 20px" }}>
+                    <h4 style={{ color: "steelblue" }}>
+                        <label style={{ color: "black" }}>
+                            Name:
+                            <input type="text" name="name" value={workoutHistoryDetail?.name} onChange={(e) => {
+                                setName(e.target.value);
+                                workoutHistoryDetail.name = e.target.value;
+                            }} />
+                        </label>
+                    </h4>
+                </div>
+                <div style={{ padding: "10px 20px" }}>
+                    <h4 style={{ color: "steelblue" }}>
+                        <label style={{ color: "black" }}>
+                            Description:
+                            <TextField
+                                style={{ textAlign: 'left' }}
+                                multiline
+                                rows={3}
+                                name="description"
+                                value={workoutHistoryDetail?.description} onChange={(e) => {
+                                    setDescription(e.target.value);
+                                    workoutHistoryDetail.description = e.target.value;
+                                }}
+                            />
+                            {/* <input type="text" name="description"
+                                value={workoutHistoryDetail?.description} onChange={(e) => {
+                                    setDescription(e.target.value);
+                                    workoutHistoryDetail.description = e.target.value;
+                                }} /> */}
+                        </label>
+                    </h4>
+                </div>
+                <div style={{ padding: "10px 20px" }}>
+                    <h4 style={{ color: "steelblue" }}>
+                        <label style={{ color: "black" }}>
+                            Notes: <TextField
+                                style={{ textAlign: 'left' }}
+                                multiline
+                                rows={3}
+                                name="notes"
+                                value={workoutHistoryDetail?.notes} onChange={(e) => {
+                                    setNotes(e.target.value);
+                                    workoutHistoryDetail.notes = e.target.value;
+                                }}
+                            />
+                        </label>
+                    </h4>
+                </div>
+                <h5 style={{ padding: "10px 0px" }}>Activities</h5>
+                {activities}
+                <div style={{ paddingTop: "10px" }}>Goal: {activities.goal?.name}</div>
+                <section id="saveWorkoutHistory" style={{ paddingTop: "10px", paddingLeft: "0px", display: "inline-block" }}>
+                    <Button
+                        onClick={(e) => SaveWorkoutHistory(e.target.value)
+                        }
+                        type="button"
+                        color="primary"
+                        variant="contained"
+                        style={{
+                            borderRadius: 35,
+                        }}
+                    > Save </Button>
+                </section>
+                <section id="backUp" style={{ paddingTop: "10px", marginLeft: "10px", display: "inline-block" }}>
+                    <Button
+                        onClick={(e) => history.goBack()
+                        }
+                        type="button"
+                        variant="outlined"
+                        style={{
+                            borderRadius: 35,
+                        }}
+                    > Back </Button>
+                </section>
+            </form>
         </>
     )
 }
