@@ -1,10 +1,20 @@
 import { useParams } from "react-router"
+import { makeStyles } from '@material-ui/core/styles';
 import useFetch from "../services/useFetch";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAlert } from "react-alert";
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import runIcon from '../Run-icon.png';
 import { Link } from 'react-router-dom';
+
+const useStyles = makeStyles({
+    field: {
+        marginTop: 20,
+        marginBottom: 20,
+        display: 'block'
+    }
+});
 
 const WorkoutHistoryDetail = ({ workoutHistory }) => {
 
@@ -16,12 +26,15 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
     const [name, setName] = useState(workoutHistoryDetail?.name);
     const [description, setDescription] = useState(workoutHistoryDetail?.description);
     const [notes, setNotes] = useState(workoutHistoryDetail?.notes);
+    const [workoutActivities, setActivities] = useState(workoutHistoryDetail?.activityHistories);
 
+    const classes = useStyles();
 
     useEffect(() => {
         setName(workoutHistoryDetail?.name);
         setDescription(workoutHistoryDetail?.description);
         setNotes(workoutHistoryDetail?.notes);
+        setActivities(workoutHistoryDetail?.activityHistories);
     }, [workoutHistoryDetail]);
 
     if (loading) return <p>Loading...</p>
@@ -54,84 +67,114 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
 
     return (
         <>
-            <h4>Workout History Detail</h4>
-            <form noValidate autoComplete="off">
-                <div style={{ padding: "10px 20px" }}>
-                    <h4 style={{ color: "steelblue" }}>
-                        <label style={{ color: "green" }}>
-                            Name:
-                            <input type="text" name="name" value={workoutHistoryDetail?.name}
-                                style={{
-                                    paddingLeft: "10px", borderTopStyle: "hidden",
-                                    borderLeftStyle: "hidden", borderRightStyle: "hidden"
-                                }}
-                                onChange={(e) => {
-                                    setName(e.target.value);
-                                    workoutHistoryDetail.name = e.target.value;
-                                }} />
-                        </label>
-                    </h4>
-                </div>
-                <div style={{ padding: "10px 20px" }}>
-                    <h4 style={{ color: "steelblue" }}>
-                        <label style={{ color: "black" }}>
-                            <span>Description:</span>
-                            <TextField
-                                style={{ textAlign: "left", paddingLeft: "10px" }}
-                                multiline
-                                rows={3}
-                                name="description"
-                                value={workoutHistoryDetail?.description} onChange={(e) => {
-                                    setDescription(e.target.value);
-                                    workoutHistoryDetail.description = e.target.value;
-                                }}
-                            />
-                        </label>
-                    </h4>
-                </div>
-                <div style={{ padding: "10px 20px" }}>
-                    <h4 style={{ color: "steelblue" }}>
-                        <label style={{ color: "black" }}>
-                            Notes: <TextField
-                                style={{ textAlign: 'left', paddingLeft: "10px" }}
-                                multiline
-                                rows={3}
-                                name="notes"
-                                value={workoutHistoryDetail?.notes} onChange={(e) => {
-                                    setNotes(e.target.value);
-                                    workoutHistoryDetail.notes = e.target.value;
-                                }}
-                            />
-                        </label>
-                    </h4>
-                </div>
-                <h5 style={{ padding: "10px 0px" }}>Activities</h5>
-                {activities}
-                <div style={{ paddingTop: "10px" }}>Goal: {activities.goal?.name}</div>
-                <section id="saveWorkoutHistory" style={{ paddingTop: "10px", paddingLeft: "0px", display: "inline-block" }}>
+            <Container>
+                <Typography
+                    variant="h6"
+                    component="h2"
+                    gutterBottom
+                >
+                    Edit Workout History
+                </Typography>
+
+                <form noValidate autoComplete="off" >
+                    <TextField
+                        onChange={(e) => {
+                            setName(e.target.value);
+                        }}
+                        className={classes.field}
+                        label="Name"
+                        name="name"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        value={name}
+                    />
+                    <TextField
+                        onChange={(e) => {
+                            setDescription(e.target.value);
+                        }}
+                        className={classes.field}
+                        label="Description"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        value={description}
+                        name="description"
+                        multiline
+                    />
+                    <section id="activities" style={{ paddingBottom: "20px", color: "#ff00bf", display: "inline" }}>
+                        {workoutActivities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
+                        {/* {activities} */}
+                        {/* {<Activities activities={activities} />} */}
+                        <TableContainer component={Paper}>
+                            <Table className={classes.table} size="small" aria-label="a dense table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell></TableCell>
+                                        <TableCell align="left">Activity</TableCell>
+                                        <TableCell align="left">Duration</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {workoutActivities?.map((activity, index) => (
+                                        <TableRow key={activity.id}>
+                                            <TableCell component="th" scope="row">
+                                                <Link to={{
+                                                    pathname: `/${id}/workout-history/${workoutHistoryDetail.id}/activityHistory/${activity.id}`
+                                                }}
+                                                    style={{ textDecoration: 'none' }}>
+                                                    <img src={runIcon} width="30" height="30" alt="goal icon" />
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField
+                                                    label="Name"
+                                                    name="name"
+                                                    variant="outlined"
+                                                    value={activity.name}
+                                                    inputProps={{ readOnly: true, disableUnderline: true }}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField
+                                                    // className={classes.field}
+                                                    label="Duration"
+                                                    name="duration"
+                                                    variant="outlined"
+                                                    value={activity.duration}
+                                                    inputProps={{ readOnly: true, disableUnderline: true }}
+                                                />
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </section>
                     <Button
-                        onClick={(e) => SaveWorkoutHistory(e.target.value)
-                        }
+                        onClick={(e) => { SaveWorkoutHistory(e.target.value) }}
                         type="button"
                         color="primary"
                         variant="contained"
                         style={{
                             borderRadius: 35,
+                            backgroundColor: "#004d00",
+                            marginTop: "10px"
                         }}
-                    > Save </Button>
-                </section>
-                <section id="backUp" style={{ paddingTop: "10px", marginLeft: "10px", display: "inline-block" }}>
-                    <Button
-                        onClick={(e) => history.goBack()
-                        }
-                        type="button"
-                        variant="outlined"
-                        style={{
-                            borderRadius: 35,
-                        }}
-                    > Back </Button>
-                </section>
-            </form>
+                    > Save</Button>
+                    <section id="backUp" style={{ display: "inline-block" }}>
+                        <Button
+                            onClick={(e) => history.goBack()
+                            }
+                            type="button"
+                            variant="outlined"
+                            style={{
+                                borderRadius: 35, marginLeft: "20px", marginTop: "10px", backgroundColor: "#000099", color: "white"
+                            }}
+                        > Back </Button>
+                    </section>
+                </form>
+            </Container>
         </>
     )
 }
