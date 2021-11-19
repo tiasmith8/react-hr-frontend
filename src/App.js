@@ -13,6 +13,7 @@ import './App.css';
 import NavBar from "./components/NavigationBar";
 import { fetchWorkouts, fetchWorkoutById, fetchProfile, fetchWorkoutHistory, fetchGoals, fetchProfileSettings } from "./services/HRService";
 import Workout from "./components/Workout";
+import ActivityHistory from "./components/ActivityHistory";
 
 function App() {
   const profileID = "60ADE84C-4079-47E9-1074-08D92F464040"
@@ -109,6 +110,12 @@ function App() {
           <Route path='/:id/workout-history/:workoutId' exact render={() => (
             <>
               <WorkoutHistoryDetail workoutHistory />
+            </>
+          )} />
+
+          <Route path='/:id/workout-history/:workoutHistoryId/activity-history/:activityHistoryId' exact render={() => (
+            <>
+              <ActivityHistory activityHistory />
             </>
           )} />
 

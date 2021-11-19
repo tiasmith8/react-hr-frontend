@@ -120,7 +120,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
                                         <TableRow key={activity.id}>
                                             <TableCell component="th" scope="row">
                                                 <Link to={{
-                                                    pathname: `/${id}/workout-history/${workoutHistoryDetail.id}/activityHistory/${activity.id}`
+                                                    pathname: `/${id}/workout-history/${workoutHistoryDetail.id}/activity-history/${activity.id}`
                                                 }}
                                                     style={{ textDecoration: 'none' }}>
                                                     <img src={runIcon} width="30" height="30" alt="goal icon" />
