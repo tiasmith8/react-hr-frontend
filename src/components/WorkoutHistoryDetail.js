@@ -26,7 +26,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
     const [name, setName] = useState(workoutHistoryDetail?.name);
     const [description, setDescription] = useState(workoutHistoryDetail?.description);
     const [notes, setNotes] = useState(workoutHistoryDetail?.notes);
-    const [workoutActivities, setActivities] = useState(workoutHistoryDetail?.activityHistories);
+    const [activityHistories, setActivityHistories] = useState(workoutHistoryDetail?.activityHistories);
 
     const classes = useStyles();
 
@@ -34,7 +34,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
         setName(workoutHistoryDetail?.name);
         setDescription(workoutHistoryDetail?.description);
         setNotes(workoutHistoryDetail?.notes);
-        setActivities(workoutHistoryDetail?.activityHistories);
+        setActivityHistories(workoutHistoryDetail?.activityHistories);
     }, [workoutHistoryDetail]);
 
     if (loading) return <p>Loading...</p>
@@ -46,7 +46,8 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
             body: JSON.stringify({
                 name: name,
                 description: description,
-                notes: notes
+                notes: notes,
+                activityHistories: activityHistories
             })
         };
         const response = await fetch(`https://localhost:44315/api/profiles/${id}/workoutHistory/${workoutId}`, requestOptions);
@@ -103,7 +104,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
                         multiline
                     />
                     <section id="activities" style={{ paddingBottom: "20px", color: "#ff00bf", display: "inline" }}>
-                        {workoutActivities?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
+                        {activityHistories?.length > 0 ? "" : <p className="top-margin" style={{ paddingBottom: "10px" }}>*No Activities Associated with Workout*</p>}
                         {/* {activities} */}
                         {/* {<Activities activities={activities} />} */}
                         <TableContainer component={Paper}>
@@ -116,7 +117,7 @@ const WorkoutHistoryDetail = ({ workoutHistory }) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {workoutActivities?.map((activity, index) => (
+                                    {activityHistories?.map((activity, index) => (
                                         <TableRow key={activity.id}>
                                             <TableCell component="th" scope="row">
                                                 <Link to={{
